@@ -21,43 +21,34 @@
         reader.onload = (e) => {
             const res = e.target.result
             const list = res.split('\n')
-            content.appendChild(createImageGallery(list))
-
+            content.appendChild(makeDir(list))
         }
         reader.readAsText(blob)
     })
 
-
-    function createImageGallery(list) {
-        const fragment = document.createDocumentFragment();
-
-        list.forEach((title, index) => {
-            if (index % 3 === 0) {
-                const row = document.createElement('div');
-                row.style.display = 'flex';
-                row.style.justifyContent = 'space-between';
-                row.style.marginBottom = '20px';
-                fragment.appendChild(row);
-            }
-
-            const container = document.createElement('div');
-            container.className = 'image-container';
-
-            const img = document.createElement('img');
-            img.src = `./${title}/pic.png`;
-            img.alt = title;
-
-            const text = document.createElement('p');
-            text.textContent = title;
-
-            container.appendChild(img);
-            container.appendChild(text);
-
-            fragment.lastChild.appendChild(container);
+    const makeDir = (list) => {
+        const fragment = document.createDocumentFragment()
+        list.forEach(title => {
+            const box = getBox()
+            box.appendChild(getImg(title))
+            const p = document.createElement('p')
+            p.textContent = title
+            box.appendChild(p)
+            fragment.appendChild(box)
         });
-
-        return fragment;
+        return fragment
     }
+    const getBox = () => {
+        const box = document.createElement('div')
+        box.classList.add('box')
+        return box
+    }
+    const getImg = (title) => {
+        const img = document.createElement('img')
+        img.classList.add('img')
+        return img
+    }
+
 
 
 </script>
@@ -69,18 +60,19 @@
 
     .content {
         display: flex;
+        flex: 0 0 30%;
         flex-wrap: wrap;
-        gap: 20px;
+        justify-content: space-around;
     }
 
-    .image-container {
-        width: calc(33.33% - 14px);
-        text-align: center;
+    .box {
+        height: 30vh;
     }
 
-    img {
-        max-width: 100%;
-        height: auto;
+    .img {
+        object-fit: cover;
+        width: 100%;
+        height: 80%;
     }
 </style>
 
