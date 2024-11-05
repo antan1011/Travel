@@ -46,6 +46,7 @@
     const getImg = (title) => {
         const img = document.createElement('img')
         img.classList.add('img')
+        img.src = `./${title}/pic.png`
         return img
     }
 
@@ -67,6 +68,10 @@
 
     .box {
         height: 30vh;
+    }
+    .box:hover {
+        transform: scale(1.1);
+        cursor: pointer;
     }
 
     .img {
