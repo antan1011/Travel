@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planning for JP</title>
+</head>
+
+<body>
+    <div class="content">
+
+    </div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+            console.log(e.target)
+        }
+        reader.readAsText('place.md')
+    })
+</script>
+
+</html>
