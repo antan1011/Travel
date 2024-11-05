@@ -14,7 +14,7 @@
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", async () => {
-        const res = await fetch('Japan/place.md')
+        const res = await fetch('/Japan/place.md')
         const blob = await res.blob()
         const reader = new FileReader()
         reader.onload = (e) => {
