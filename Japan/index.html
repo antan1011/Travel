@@ -13,12 +13,14 @@
     </div>
 </body>
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", async () => {
+        const res = await fetch('Japan/place.md')
+        const blob = await res.blob()
         const reader = new FileReader()
         reader.onload = (e) => {
             console.log(e.target)
         }
-        reader.readAsText('place.md')
+        reader.readAsText(blob)
     })
 </script>
 
