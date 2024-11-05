@@ -33,6 +33,7 @@
             box.appendChild(getImg(title))
             const p = document.createElement('p')
             p.textContent = title
+            p.style.textAlign = 'center'
             box.appendChild(p)
             fragment.appendChild(box)
         });
@@ -47,6 +48,7 @@
         const img = document.createElement('img')
         img.classList.add('img')
         img.src = `./${title}/pic.png`
+        img.draggable = 'false'
         return img
     }
 
@@ -58,7 +60,11 @@
         margin: 0;
         padding: 0;
     }
-
+    body {
+        width: 100vw;
+        height: 100vh;
+        padding: 2em;
+    }
     .content {
         display: flex;
         row-gap: 2em;
@@ -71,8 +77,9 @@
         height: 36vh;
     }
     .box:hover {
-        transform: scale(1.1);
+        transform: scale(1.08);
         cursor: pointer;
+        font-weight: 800;
     }
 
     .img {
