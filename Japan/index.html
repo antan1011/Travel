@@ -13,15 +13,75 @@
     </div>
 </body>
 <script>
+    const content = document.querySelector('.content')
     document.addEventListener("DOMContentLoaded", async () => {
         const res = await fetch('./place.md')
         const blob = await res.blob()
         const reader = new FileReader()
         reader.onload = (e) => {
-            console.log(e.target)
+            const res = e.target.result
+            const list = res.split('\n')
+            content.appendChild(createImageGallery(list))
+
         }
         reader.readAsText(blob)
     })
+
+
+    function createImageGallery(list) {
+        const fragment = document.createDocumentFragment();
+
+        list.forEach((title, index) => {
+            if (index % 3 === 0) {
+                const row = document.createElement('div');
+                row.style.display = 'flex';
+                row.style.justifyContent = 'space-between';
+                row.style.marginBottom = '20px';
+                fragment.appendChild(row);
+            }
+
+            const container = document.createElement('div');
+            container.className = 'image-container';
+
+            const img = document.createElement('img');
+            img.src = `./${title}/pic.png`;
+            img.alt = title;
+
+            const text = document.createElement('p');
+            text.textContent = title;
+
+            container.appendChild(img);
+            container.appendChild(text);
+
+            fragment.lastChild.appendChild(container);
+        });
+
+        return fragment;
+    }
+
+
 </script>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .image-container {
+        width: calc(33.33% - 14px);
+        text-align: center;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
 
 </html>
