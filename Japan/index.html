@@ -29,7 +29,7 @@
     const makeDir = (list) => {
         const fragment = document.createDocumentFragment()
         list.forEach(title => {
-            const box = getBox()
+            const box = getBox(title)
             box.appendChild(getImg(title))
             const p = document.createElement('p')
             p.textContent = title
@@ -39,8 +39,11 @@
         });
         return fragment
     }
-    const getBox = () => {
+    const getBox = title => {
         const box = document.createElement('div')
+        box.addEventListener('click',() => {
+            window.location.href = title
+        })
         box.classList.add('box')
         return box
     }
