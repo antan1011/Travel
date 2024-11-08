@@ -9,22 +9,30 @@
 
 <body>
     <div class="content"></div>
-
 </body>
 <script>
     const content = document.querySelector('.content')
     document.addEventListener("DOMContentLoaded", async () => {
-        const res = await fetch('./place.md')
-        const blob = await res.blob()
-        const reader = new FileReader()
-        reader.onload = (e) => {
-            const res = e.target.result
-            const list = res.split('\n')
-            content.appendChild(makeDir(list))
-        }
-        reader.readAsText(blob)
+        // const res = await fetch('./place.md')
+        // const blob = await res.blob()
+        // const reader = new FileReader()
+        // reader.onload = (e) => {
+        //     const res = e.target.result
+        //     const list = res.split('\n')
+        //     content.appendChild(makeDir(list))
+        // }
+        // reader.readAsText(blob)
+        const list = (await getDir('antan1011','Travel','Japan','main'))
+        content.appendChild(makeDir(list))
     })
-
+    const getRepo = async (username, repo, dir, branch) => {
+        const params = new URLSearchParams({ ref: branch }).toString()
+        const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${dir}?${params}`, {
+            method: 'Get'
+        })
+        return await res.json()
+    }
+    const getDir = async (username, repo, dir, branch) => (await getRepo(username,repo,dir,branch)).filter(item => item.type === 'dir').map(item => item.name)
     const makeDir = (list) => {
         const fragment = document.createDocumentFragment()
         list.forEach(title => {
@@ -53,10 +61,6 @@
         img.draggable = 'false'
         return img
     }
-
-
-
-
 </script>
 <style>
     * {
@@ -105,8 +109,5 @@
     ::-webkit-scrollbar {
         display: none;
     }
-
-
 </style>
-
 </html>
