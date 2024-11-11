@@ -13,18 +13,10 @@
 <script>
     const content = document.querySelector('.content')
     document.addEventListener("DOMContentLoaded", async () => {
-        // const res = await fetch('./place.md')
-        // const blob = await res.blob()
-        // const reader = new FileReader()
-        // reader.onload = (e) => {
-        //     const res = e.target.result
-        //     const list = res.split('\n')
-        //     content.appendChild(makeDir(list))
-        // }
-        // reader.readAsText(blob)
         const list = (await getDir('antan1011','Travel','Japan','main'))
         content.appendChild(makeDir(list))
     })
+    
     const getRepo = async (username, repo, dir, branch) => {
         const params = new URLSearchParams({ ref: branch }).toString()
         const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${dir}?${params}`, {
